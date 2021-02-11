@@ -9,9 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var TimerLabel: UILabel!
-    @IBOutlet weak var startStopButton: UIButton!
-    @IBOutlet weak var resetButton: UIButton!
+    @IBOutlet private weak var timerLabel: UILabel!
+    @IBOutlet private weak var startStopButton: UIButton!
+    @IBOutlet private weak var resetButton: UIButton!
     //Timer
     var timer:Timer = Timer()
     var count:Int = 0
@@ -28,10 +28,11 @@ class ViewController: UIViewController {
             timerCounting = false
             timer.invalidate()
             startStopButton.setTitle("START", for: .normal)
-            startStopButton.setTitleColor(UIColor.red, for: .normal)
+            startStopButton.setTitleColor(UIColor.green, for: .normal)
         } else {
             timerCounting = true
             startStopButton.setTitle("STOP", for: .normal)
+            startStopButton.setTitleColor(UIColor.red, for: .normal)
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
         }
     }
@@ -45,7 +46,7 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "CANCEL", style: .cancel, handler: { (_) in
             self.count = 0
             self.timer.invalidate()
-            self.TimerLabel.text = self.makeTimeString(hour: 0, minutes: 0, seconds: 0)
+            self.timerLabel.text = self.makeTimeString(hour: 0, minutes: 0, seconds: 0)
             self.startStopButton.setTitle("START", for: .normal)
             self.startStopButton.setTitleColor(UIColor.green, for: .normal)
         }))
@@ -55,12 +56,12 @@ class ViewController: UIViewController {
     
     @objc func timerCounter() -> Void {
         count = count + 1
-        let time = secondsToHoursMinutesSeconds(secondes: count)
+        let time = secondsToHoursMinutesSeconds(seconds: count)
         let timeString = makeTimeString(hour: time.0, minutes: time.1, seconds: time.2)
-        TimerLabel.text = timeString
+        timerLabel.text = timeString
     }
     
-    func secondsToHoursMinutesSeconds(secondes: Int) -> (Int, Int, Int) {
+    func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
         return ((seconds / 3600), ((seconds % 3600) / 60), ((seconds % 3600) % 60))
     }
     
