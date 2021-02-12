@@ -56,6 +56,7 @@
                         <outlet property="TimerLabel" destination="UkW-fC-lvO" id="KhF-9c-CXe"/>
                         <outlet property="resetButton" destination="SjR-ST-XG4" id="sL1-kF-nq0"/>
                         <outlet property="startStopButton" destination="bJ5-Dd-ujS" id="3nz-0B-iOK"/>
+                        <outlet property="timerLabel" destination="UkW-fC-lvO" id="M3A-Gb-GZd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
