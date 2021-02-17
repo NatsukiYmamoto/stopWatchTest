@@ -36,9 +36,18 @@ class ViewController: UIViewController {
             timerCounting = true
             startStopButton.setTitle("STOP", for: .normal)
             startStopButton.setTitleColor(UIColor.red, for: .normal)
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
             print("true")
         }
+    }
+    
+    @objc func timerCounter() -> Void {
+        count = count + 1
+        print(count)
+        let time = secondsToHoursMinutesSeconds(seconds: count)
+        let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
+        print("koko")
+        timerLabel.text = timeString
     }
     
     @IBAction func resetTapped(_ sender: Any) {
@@ -50,7 +59,7 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
             self.count = 0
             self.timer.invalidate()
-            self.timerLabel.text = self.makeTimeString(hour: 0, minutes: 0, seconds: 0)
+            self.timerLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
             self.startStopButton.setTitle("START", for: .normal)
             self.startStopButton.setTitleColor(UIColor.green, for: .normal)
         }))
@@ -58,27 +67,17 @@ class ViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    @objc func timerCounter() -> Void {
-        count = count + 1
-        print(count)
-        let time = secondsToHoursMinutesSeconds(seconds: count)
-        let timeString = makeTimeString(hour: time.0, minutes: time.1, seconds: time.2)
-        print("koko")
-        timerLabel.text = timeString
-    }
-    
     func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int) {
         return ((seconds / 3600), ((seconds % 3600) / 60), ((seconds % 3600) % 60))
     }
     
-    func makeTimeString(hour: Int, minutes: Int, seconds: Int) -> String{
+    func makeTimeString(hours: Int, minutes: Int, seconds: Int) -> String {
         var timeString = ""
-        timeString += String(format: "%02d", hour)
+        timeString += String(format: "%02d", hours)
         timeString += " : "
         timeString += String(format: "%02d", minutes)
         timeString += " : "
         timeString += String(format: "%02d", seconds)
-        timeString += " : "
         return timeString
     }
 }
