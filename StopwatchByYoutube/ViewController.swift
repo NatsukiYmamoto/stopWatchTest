@@ -21,9 +21,25 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         startStopButton.setTitleColor(UIColor.green, for: .normal)
-        timerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 60, weight: .medium)
+        setupLabel()
+        //setupButton()
         print("viewDidLoad")
     }
+    //テキストの設定
+    func setupLabel() {
+        timerLabel.font = UIFont.monospacedDigitSystemFont(ofSize: 60, weight: .medium)
+        timerLabel.layer.shadowColor = UIColor.green.cgColor
+        timerLabel.layer.shadowRadius = 10.0
+        timerLabel.layer.shadowOpacity = 1.0
+        timerLabel.layer.shadowOffset = CGSize.zero
+    }
+//    //ボタンの設定
+//    func setupButton() {
+//        resetButton.layer.shadowColor = UIColor.blue.cgColor
+//        resetButton.layer.shadowRadius = 10.0
+//        resetButton.layer.shadowOpacity = 1.0
+//        resetButton.layer.shadowOffset = CGSize.zero
+//    }
     //StartStopButtonを押したとき
     @IBAction func startStopTapped(_ sender: Any) {
         print("pressButton")
@@ -32,11 +48,19 @@ class ViewController: UIViewController {
             timer.invalidate()
             startStopButton.setTitle("START", for: .normal)
             startStopButton.setTitleColor(UIColor.green, for: .normal)
+            startStopButton.layer.shadowColor = UIColor.green.cgColor
+            startStopButton.layer.shadowRadius = 10.0
+            startStopButton.layer.shadowOpacity = 1.0
+            startStopButton.layer.shadowOffset = CGSize.zero
             print("false")
         } else {
             timerCounting = true
             startStopButton.setTitle("STOP", for: .normal)
             startStopButton.setTitleColor(UIColor.red, for: .normal)
+            startStopButton.layer.shadowColor = UIColor.red.cgColor
+            startStopButton.layer.shadowRadius = 10.0
+            startStopButton.layer.shadowOpacity = 1.0
+            startStopButton.layer.shadowOffset = CGSize.zero
             timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
             print("true")
         }
